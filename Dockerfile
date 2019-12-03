@@ -35,7 +35,7 @@ COPY ./docker-entrypoint.py /dock/docker-entrypoint.py
 
 RUN apt-get update                                                    \
   && apt-get  install -y  python3.7                                   \ 
-  && apt-get install --upgrade -y python3-pip                         \
+  && apt-get install -y python3-pip                                   \
   && apt-get install -y python-pip 	                                  \
   && apt-get install sudo                                             \
   && useradd -u $UID -ms /bin/bash localuser                          \
