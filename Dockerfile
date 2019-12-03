@@ -23,7 +23,7 @@
 #
 
 
-FROM ubuntu:latest
+FROM ppc64le/ubuntu:latest
 MAINTAINER fnndsc "dev@babymri.org"
 
 # Pass a UID on build command line (see above) to set internal UID
