@@ -33,21 +33,22 @@ ENV UID=$UID
 COPY . /tmp/pman
 COPY ./docker-entrypoint.py /dock/docker-entrypoint.py
 
-RUN apt-get update                                                    \
-  && apt-get  install -y  python3.7                                   \ 
-  && apt-get install -y python3-pip                                   \
-  && apt-get install -y python-pip 	                                  \
-  && apt-get install sudo                                             \
-  && useradd -u $UID -ms /bin/bash localuser                          \
-  && addgroup localuser sudo                                          \
-  && echo "localuser:localuser" | chpasswd                            \
-  && adduser localuser sudo                                           \
-  && apt-get install -y libssl-dev libcurl4-openssl-dev bsdmainutils net-tools inetutils-ping \
-  && pip3 install /tmp/pman                                           \ 
-  && rm -rf /tmp/pman                                                 \
-  && chmod 777 /dock                                                  \
-  && chmod 777 /dock/docker-entrypoint.py                             \
-  && echo "localuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+RUN apt-get update                                                    
+RUN apt-get  install -y  python3.7                                   
+RUN apt-get install -y python3-pip                                   
+RUN apt-get install -y python-pip 	                                 
+RUN apt-get install sudo                                             
+RUN useradd -u $UID -ms /bin/bash localuser                          
+RUN addgroup localuser sudo                                          
+RUN echo "localuser:localuser" | chpasswd                            
+RUN adduser localuser sudo                                           
+RUN apt-get install -y libssl-dev libcurl4-openssl-dev bsdmainutils net-tools inetutils-ping 
+RUN pip install --upgrade pip
+RUN pip3 install /tmp/pman                                            
+RUN rm -rf /tmp/pman                                                 
+RUN chmod 777 /dock                                                  
+RUN chmod 777 /dock/docker-entrypoint.py                             
+RUN echo "localuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 ENTRYPOINT ["/dock/docker-entrypoint.py"]
 EXPOSE 5010
